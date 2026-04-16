@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <title>Wordle Game</title>
+      <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+<div id="game-container">
+      <h1>Wordle</h1>
+      <button id="start-game-btn">Начать игру</button>
+      <div id="grid"></div>
+      <button id="settings-btn">⚙️ Настройки</button>
+      <div id="settings-dialog" class="hidden">
+          <h2>Настройки</h2>
+          <div>
+              <label><input type="radio" name="theme" value="dark" checked> 🌘 Тёмная тема</label><br>
+              <label><input type="radio" name="theme" value="light"> 🌞 Светлая тема</label>
+          </div>
+          <button id="save">Применить</button>
+          <button id="cancel">Отмена</button>
+      </div>
+      <h2> </h2>
+      <span id="message"></span>
+      <!-- Виртуальная клавиатура -->
+      <div id="keyboard">
+          <div class="row">
+              <button data-key="Й">Й</button>
+              <button data-key="Ц">Ц</button>
+              <button data-key="У">У</button>
+              <button data-key="К">К</button>
+              <button data-key="Е">Е</button>
+              <button data-key="Н">Н</button>
+              <button data-key="Г">Г</button>
+              <button data-key="Ш">Ш</button>
+              <button data-key="Щ">Щ</button>
+              <button data-key="З">З</button>
+              <button data-key="Х">Х</button>
+              <button data-key="Ъ">Ъ</button>
+          </div>
+          <div class="row">
+              <button data-key="Ф">Ф</button>
+              <button data-key="Ы">Ы</button>
+              <button data-key="В">В</button>
+              <button data-key="А">А</button>
+              <button data-key="П">П</button>
+              <button data-key="Р">Р</button>
+              <button data-key="О">О</button>
+              <button data-key="Л">Л</button>
+              <button data-key="Д">Д</button>
+              <button data-key="Ж">Ж</button>
+              <button data-key="Э">Э</button>
+          </div>
+          <div class="row">
+              <button data-key="Я">Я</button>
+              <button data-key="Ч">Ч</button>
+              <button data-key="С">С</button>
+              <button data-key="М">М</button>
+              <button data-key="И">И</button>
+              <button data-key="Т">Т</button>
+              <button data-key="Ь">Ь</button>
+              <button data-key="Б">Б</button>
+              <button data-key="Ю">Ю</button>
+          </div>
+          <div class="row">
+              <button data-key="DELETE" class="delete-button">Удалить</button>
+              <button data-key="ENTER" class="enter-button">Ввод</button>
+          </div>
+      </div>
+        <h3> ‎ </h3>
+            <span id="label">Версия 1.0.6</span>
+</div>
+      <div id="modal-overlay" class="hidden"></div>
+<script src="script.js"></script>
+</body>
+</html>
