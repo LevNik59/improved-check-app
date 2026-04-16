@@ -1,0 +1,379 @@
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+}
+
+body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+}
+
+#game-container {
+      position: relative; /* 1. Изменили на relative */
+      top: 0; /* 2. Сбросили позиционирование */
+      left: 0;
+      transform: none;
+      flex-wrap: wrap;
+      display: flex; /* 3. Включили Flexbox */
+      flex-direction: column; /* 4. Указали, что элементы идут сверху вниз */
+      min-height: 100vh; /* 5. Заставляем контейнер занимать минимум всю высоту окна */
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+}
+#setup-form {
+      display: block;
+      margin-bottom: 20px;
+}
+
+#setup-form label {
+      font-weight: bold;
+      color: inherit;
+      margin-right: 10px;
+}
+
+#setup-form input {
+      padding: 10px;
+      font-size: 16px;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      color: currentColor;
+      border-bottom: 2px solid currentColor;
+      width: 100%;
+      text-align: center;
+}
+
+#setup-form button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+}
+
+#setup-form button:hover {
+      background-color: var(--primary-hover-color);
+}
+
+h1 {
+      font-size: 3em;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+}
+h3 {
+      font-size: 3em;
+      color: rgba(0, 0, 0, 0);
+}
+
+.grid-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+}
+
+.tile {
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      visibility: visible;
+      font-size: 24px;
+      line-height: 50px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      border-radius: 5px;
+      box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.5);
+      color: var(color);
+}
+
+.tile.gray {
+      background-color: #787c7e;
+}
+
+.tile.yellow {
+      background-color: #c9b458;
+}
+
+.tile.green {
+      background-color: #6aaa64;
+}
+.tile.active {
+    box-shadow: 0 0 0 3px #4a90e2; /* Яркая рамка */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* --- ДОБАВЬ ЭТО В CSS --- */
+#grid.animate-tiles .tile.green {
+    animation: colorizeGreen 0.5s ease-in forwards;
+}
+#grid.animate-tiles .tile.yellow {
+    animation: colorizeYellow 0.5s ease-in forwards;
+}
+#grid.animate-tiles .tile.gray {
+    animation: colorizeGray 0.5s ease-in forwards;
+}
+
+/* Сами кадры анимации остаются те же */
+@keyframes colorizeGreen {
+  0% { background-color: rgba(0, 0, 0, 0); box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.5); }
+  100% { background-color: #6aaa64; box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); }
+}
+@keyframes colorizeYellow {
+  0% { background-color: rgba(0, 0, 0, 0); box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.5); }
+  100% { background-color: #c9b458; box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3); }
+}
+@keyframes colorizeGray {
+  0% { background-color: rgba(0, 0, 0, 0); box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.3); }
+  100% { background-color: #787c7e; box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.2); }
+}
+
+/* Анимация активной плитки */
+.tile.active {
+  animation: pulse 1s infinite ease-in-out;
+  box-shadow: 0 0 0 3px #4a90e2;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+input {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      color: currentColor;
+      border-bottom: 2px solid currentColor;
+      width: calc(100% - 20px);
+      text-align: center;
+}
+
+button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+      background-color: var(--primary-hover-color);
+}
+#start-game-btn,
+#settings-btn,
+#label {
+    width: fit-content; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#message {
+      font-size: 18px;
+      color: var(--info-color);
+      text-align: center;
+}
+#label {
+      font-size: 18px;
+      color: var(color);
+      text-align: center;
+}
+
+/* ----------- ТЕМНАЯ ТЕМА (начальная) ---------- */
+.dark-mode {
+      --primary-color: #1a8cf8;
+      --primary-hover-color: #1572df;
+      --secondary-color: white;
+      --background-color: #121213;
+      --tile-gray: #787c7e;
+      --tile-yellow: #c9b458;
+      --tile-green: #6aaa64;
+      --info-color: #ffcc00;
+      color: white;
+      background-color: #121213;
+}
+
+/* ----------- СВЕТЛАЯ ТЕМА ---------- */
+.light-mode {
+      --primary-color: #007bff;
+      --primary-hover-color: #0069d9;
+      --secondary-color: black;
+      --background-color: #f8f9fa;
+      --tile-gray: #ced4da;
+      --tile-yellow: #ffea00;
+      --tile-green: #28a745;
+      --info-color: #212529;
+      color: black;
+      background-color: #f8f9fa;
+}
+
+/* Применяется общая тема к каждому элементу */
+body.dark-mode,
+body.light-mode {
+      background-color: var(--background-color);
+      color: var(--secondary-color);
+}
+
+body.dark-mode #setup-form input,
+body.light-mode #setup-form input {
+      color: var(--secondary-color);
+      border-bottom-color: var(--secondary-color);
+}
+
+body.dark-mode button,
+body.light-mode button {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+}
+
+body.dark-mode button:hover,
+body.light-mode button:hover {
+      background-color: var(--primary-hover-color);
+}
+
+body.dark-mode .tile.gray,
+body.light-mode .tile.gray {
+      background-color: var(--tile-gray);
+}
+
+body.dark-mode .tile.yellow,
+body.light-mode .tile.yellow {
+      background-color: var(--tile-yellow);
+}
+
+body.dark-mode .tile.green,
+body.light-mode .tile.green {
+      background-color: var(--tile-green);
+}
+
+body.dark-mode #message,
+body.light-mode #message {
+      color: var(--info-color);
+}
+.hidden {
+      display: none;
+}
+
+/* Лёгкое затемнение фона страницы */
+#modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+}
+
+/* Контейнер самого модального окна */
+#settings-dialog {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--background-color);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      display: none;
+}
+
+/* Кнопка закрытия модального окна */
+#close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+}
+
+#settings-dialog h2 {
+      margin-bottom: 10px;
+}
+
+#settings-dialog label {
+      display: block;
+      margin-bottom: 10px;
+}
+
+#settings-dialog button {
+      margin-top: 10px;
+}
+/* Основные стили для клавиатуры */
+#keyboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button[data-key] {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button[data-key]:hover {
+    background-color: var(--primary-color);
+}
+
+.delete-button, .enter-button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.delete-button:hover, .enter-button:hover {
+    background-color: var(--primary-hover-color);
+}
+/* Серый цвет для букв, отсутствующих в слове */
+.gray {
+    background-color: #787c7e;
+}
+
+/* Жёлтый цвет для букв, находящихся не на своей позиции */
+.yellow {
+    background-color: #c9b458;
+}
+
+/* Зеленый цвет для правильно угаданных букв */
+.green {
+    background-color: #6aaa64;
+}
