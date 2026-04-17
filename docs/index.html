@@ -3445,62 +3445,73 @@ function handlePhysicalKeyboard(event) {
     }
 }
 
-// --- ГЛАВНАЯ ФУНКЦИЯ ОТРИСОВКИ ---
+// --- НОВАЯ ВЕРСИЯ: renderEntireGame ---
 function renderEntireGame() {
-    gridElement.innerHTML = ''; // Полная очистка перед перерисовкой
+    // 1. Находим контейнер
+    const gridContainer = document.querySelector('#grid');
 
-    // 1. Отрисовываем завершенные ходы (раскрашиваем плитки)
+    // 2. Удаляем лишние ряды (если мы удаляли строки или что-то пошло не так)
+    // Оставляем только то количество рядов, которое есть в массиве guesses + 1 для текущего хода
+    while (gridContainer.children.length > guesses.length + 1) {
+        gridContainer.removeChild(gridContainer.lastChild);
+    }
+
+    // 3. Отрисовываем завершенные ходы (если они еще не отрисованы)
     guesses.forEach((guess, rowIndex) => {
-        const rowDiv = document.createElement('div');
-        rowDiv.classList.add('grid-row');
+        // Проверяем, существует ли уже этот ряд в DOM
+        const existingRow = gridContainer.children[rowIndex];
         
-        const colors = calculateTileColors(guess);
-        
-        guess.split('').forEach((letter, colIndex) => {
-            const tile = document.createElement('div');
-            tile.classList.add('tile');
+        if (!existingRow) {
+            // Если ряда нет, создаем его
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('grid-row');
             
-            if (letter) {
+            const colors = calculateTileColors(guess);
+            
+            guess.split('').forEach((letter, colIndex) => {
+                const tile = document.createElement('div');
+                tile.classList.add('tile', 'has-text', colors[colIndex]);
                 tile.textContent = letter;
-                tile.classList.add(colors[colIndex]); // Добавляем цвет: green/yellow/gray
-                
-                tile.classList.add('has-text'); // Делаем видимым
-            }
-            rowDiv.appendChild(tile);
-        });
-        gridElement.appendChild(rowDiv);
+                rowDiv.appendChild(tile);
+            });
+            gridContainer.appendChild(rowDiv);
+        }
     });
 
-    // 2. Отрисовываем текущий ряд (где идет ввод)
-    if (currentRow.length > 0) {
-        const rowDiv = document.createElement('div');
-        rowDiv.classList.add('grid-row');
-        
-        currentRow.forEach((letter, colIndex) => {
-            const tile = document.createElement('div');
-            tile.classList.add('tile');
-            
-            if (letter) {
-                tile.textContent = letter;
-                tile.classList.add('has-text'); // Буквы текущего хода всегда видны
-            }
-            
-            // Подсветка активной плитки
-            if (colIndex === currentCol) {
-                if (!isGameOver) {
-                tile.classList.add('active');
-                }
-                // Принудительно снимаем фокус с кнопок и ставим на активную плитку
-                document.activeElement?.blur();
-                if (!isGameOver) {
-                tile.focus(); 
-                }
-            }
-            
-            rowDiv.appendChild(tile);
-        });
-        gridElement.appendChild(rowDiv);
+    // 4. Отрисовываем текущий ряд (где идет ввод)
+    let currentRowDiv = gridContainer.querySelector('.grid-row:last-child');
+    
+    // Проверяем, нужно ли создать новый ряд (при старте игры или после хода)
+    if (!currentRowDiv || currentRow.every(letter => letter)) {
+        // Если последнего ряда нет или он полностью заполнен буквами
+        currentRowDiv = document.createElement('div');
+        currentRowDiv.classList.add('grid-row');
+        gridContainer.appendChild(currentRowDiv);
+        currentCol = 0; // Сбрасываем позицию курсора при создании нового ряда
     }
+
+    // Очищаем текущий ряд перед перерисовкой
+    currentRowDiv.innerHTML = ''; 
+
+    // Рисуем плитки текущего ряда
+    currentRow.forEach((letter, colIndex) => {
+        const tile = document.createElement('div');
+        tile.classList.add('tile');
+        
+        if (letter) {
+            tile.textContent = letter;
+            tile.classList.add('has-text'); 
+        }
+        
+        // Подсветка АКТИВНОЙ плитки (СИНЯЯ)
+        if (colIndex === currentCol && !isGameOver) {
+            tile.classList.add('active');
+            document.activeElement?.blur();
+            tile.focus(); 
+        }
+        
+        currentRowDiv.appendChild(tile);
+    });
 }
 
 // --- ФУНКЦИЯ ПОДСЧЕТА ЦВЕТОВ (логика Wordle) ---
@@ -3574,66 +3585,60 @@ function resetKeyboardColors() {
     });
 }
 
-// --- ЛОГИКА ОТПРАВКИ ХОДА (ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ) ---
+// --- ИСПРАВЛЕННАЯ ВЕРСИЯ: submitCurrentGuess ---
 function submitCurrentGuess() {
     const guessWord = currentRow.join('').toUpperCase();
-    messageSpan.textContent = ''; // Очищаем сообщение сразу
+    messageSpan.textContent = '';
 
-    // --- ПРОВЕРКА ВАЛИДНОСТИ СЛОВА (ВНАЧАЛЕ!) ---
-    // Проверяем длину и наличие в словаре ДО любых действий
+    // Проверка валидации ПЕРВЫМ ДЕЛОМ
     if (guessWord.length !== WORD_LENGTH || !words.includes(guessWord)) {
         if (guessWord.length !== WORD_LENGTH) {
             messageSpan.textContent = 'Слово должно быть из 5 букв!';
         } else {
             messageSpan.textContent = 'Слова "' + guessWord + '" не существует!';
         }
-        // Если слово неверное, просто выходим из функции.
-        // Ничего не добавляем в guesses, не запускаем анимации.
         return; 
     }
 
-    // --- МАГИЯ АНИМАЦИИ И ЛОГИКИ (ТОЛЬКО ДЛЯ ВАЛИДНЫХ СЛОВ) ---
-    
-    // 1. Добавляем слово в историю ходов
+    // --- ЛОГИКА ХОДА ---
     guesses.push(guessWord);
-
-    // 2. Запускаем анимацию ТОЛЬКО для плиток, если слово валидное
+    
+    // --- АНИМАЦИЯ ТЕПЕРЬ БУДЕТ РАБОТАТЬ ---
+    // Запускаем анимацию для всего контейнера сетки
     const gridContainer = document.querySelector('#grid');
-    gridContainer.classList.add('animate-tiles');
+    
+    // Добавляем класс анимации. Он сработает, так как мы не удаляем #grid из DOM.
+    gridContainer.classList.add('animate-tiles'); 
+    
+    // Убираем класс через 500мс (длительность анимации)
     setTimeout(() => {
         gridContainer.classList.remove('animate-tiles');
     }, 500);
 
-    // --- НОВАЯ МАГИЯ: ПОДСВЕТКА КЛАВИАТУРЫ С АНИМАЦИЕЙ ---
-    // 1. Сначала сбрасываем все цвета с клавиатуры
+
+    // --- ПОДСВЕТКА КЛАВИАТУРЫ ---
     resetKeyboardColors();
-
-    // 2. Получаем массив статусов для букв (green/yellow/gray)
     const colors = calculateTileColors(guessWord);
-
-    // 3. Проходим по каждой букве введенного слова и применяем класс
-    // Благодаря CSS transition, добавление класса будет анимированным
+    
     guessWord.split('').forEach((letter, index) => {
         const keyButton = document.querySelector(`button[data-key="${letter}"]`);
         if (keyButton) {
             keyButton.classList.add(colors[index]);
         }
     });
-    // --- КОНЕЦ НОВОЙ МАГИИ ---
 
 
-    // --- ПРОВЕРКИ РЕЗУЛЬТАТА ИГРЫ ---
+    // --- ПРОВЕРКА ПОБЕДЫ/ПОРАЖЕНИЯ ---
     
-    // Если слово валидное, проверяем результат игры
     if (guessWord === answer) {
         endGame(true);
     } else if (guesses.length >= MAX_GUESSES) {
         endGame(false);
     } else {
-        // Переходим к следующему ряду только если игра продолжается
+        // Переходим к следующему ряду и перерисовываем ТОЛЬКО активную плитку
         currentRow = new Array(WORD_LENGTH).fill('');
         currentCol = 0;
-        renderEntireGame();
+        renderEntireGame(); 
     }
 }
 
