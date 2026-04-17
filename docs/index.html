@@ -3571,20 +3571,10 @@ function resetKeyboardColors() {
     });
 }
 
-// --- ЛОГИКА ОТПРАВКИ ХОДА (ОБНОВЛЕННАЯ) ---
+// --- ЛОГИКА ОТПРАВКИ ХОДА (ИСПРАВЛЕННАЯ) ---
 function submitCurrentGuess() {
     const guessWord = currentRow.join('').toUpperCase();
-    
-    if (!guessWord || guessWord.length !== WORD_LENGTH || !words.includes(guessWord)) {
-        // Слово не подходит или не в словаре
-        if (guessWord.length !== WORD_LENGTH) {
-            messageSpan.textContent = 'Слово должно быть из 5 букв!';
-        } else {
-            messageSpan.textContent = 'Слова "' + guessWord + '" не существует!';
-        }
-        return; 
-    }
-    messageSpan.textContent = '';
+    messageSpan.textContent = ''; // Очищаем сообщение сразу
 
     // --- НОВАЯ МАГИЯ: ПОДСВЕТКА КЛАВИАТУРЫ ---
     // 1. Сначала сбрасываем все цвета с клавиатуры
@@ -3595,24 +3585,46 @@ function submitCurrentGuess() {
 
     // 3. Проходим по каждой букве введенного слова
     guessWord.split('').forEach((letter, index) => {
-        // 4. Находим кнопку на клавиатуре, соответствующую этой букве
         const keyButton = document.querySelector(`button[data-key="${letter}"]`);
-        
-        // 5. Если кнопка найдена, добавляем ей класс цвета
         if (keyButton) {
             keyButton.classList.add(colors[index]);
         }
     });
     // --- КОНЕЦ НОВОЙ МАГИИ ---
 
-    guesses.push(guessWord);
+    // --- МАГИЯ АНИМАЦИИ И ЛОГИКИ (ПЕРЕНЕСЕНА В НАЧАЛО) ---
     
+    // Добавляем слово в историю ходов (даже если оно неверное!)
+    guesses.push(guessWord);
+
+    // Запускаем анимацию для всего контейнера сетки
+    const gridContainer = document.querySelector('#grid');
+    gridContainer.classList.add('animate-tiles');
+    setTimeout(() => {
+        gridContainer.classList.remove('animate-tiles');
+    }, 500);
+
+    // --- ПРОВЕРКИ УСЛОВИЙ ИГРЫ ---
+    
+    // Проверка на наличие слова в словаре и длину делаем ПОСЛЕ анимации и логики
+    if (guessWord.length !== WORD_LENGTH || !words.includes(guessWord)) {
+        if (guessWord.length !== WORD_LENGTH) {
+            messageSpan.textContent = 'Слово должно быть из 5 букв!';
+        } else {
+            messageSpan.textContent = 'Слова "' + guessWord + '" не существует!';
+        }
+        // Удаляем неверное слово из истории, чтобы не мешало логике игры
+        guesses.pop(); 
+        return; 
+    }
+
+    // Если слово валидное, проверяем результат игры
     if (guessWord === answer) {
         endGame(true);
     } else if (guesses.length >= MAX_GUESSES) {
         endGame(false);
     } else {
-        // Переходим к следующему ряду
+        // Переходим к следующему ряду только если игра продолжается
         currentRow = new Array(WORD_LENGTH).fill('');
         currentCol = 0;
         renderEntireGame();
