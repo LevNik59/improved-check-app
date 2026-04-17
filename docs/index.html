@@ -340,6 +340,9 @@ body.light-mode #message {
     gap: 10px;
     margin-top: 20px;
 }
+ #keyboard button {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавная смена цвета и тени */
+}
 
 .row {
     display: flex;
@@ -3571,19 +3574,45 @@ function resetKeyboardColors() {
     });
 }
 
-// --- ЛОГИКА ОТПРАВКИ ХОДА (ИСПРАВЛЕННАЯ) ---
+// --- ЛОГИКА ОТПРАВКИ ХОДА (ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ) ---
 function submitCurrentGuess() {
     const guessWord = currentRow.join('').toUpperCase();
     messageSpan.textContent = ''; // Очищаем сообщение сразу
 
-    // --- НОВАЯ МАГИЯ: ПОДСВЕТКА КЛАВИАТУРЫ ---
+    // --- ПРОВЕРКА ВАЛИДНОСТИ СЛОВА (ВНАЧАЛЕ!) ---
+    // Проверяем длину и наличие в словаре ДО любых действий
+    if (guessWord.length !== WORD_LENGTH || !words.includes(guessWord)) {
+        if (guessWord.length !== WORD_LENGTH) {
+            messageSpan.textContent = 'Слово должно быть из 5 букв!';
+        } else {
+            messageSpan.textContent = 'Слова "' + guessWord + '" не существует!';
+        }
+        // Если слово неверное, просто выходим из функции.
+        // Ничего не добавляем в guesses, не запускаем анимации.
+        return; 
+    }
+
+    // --- МАГИЯ АНИМАЦИИ И ЛОГИКИ (ТОЛЬКО ДЛЯ ВАЛИДНЫХ СЛОВ) ---
+    
+    // 1. Добавляем слово в историю ходов
+    guesses.push(guessWord);
+
+    // 2. Запускаем анимацию ТОЛЬКО для плиток, если слово валидное
+    const gridContainer = document.querySelector('#grid');
+    gridContainer.classList.add('animate-tiles');
+    setTimeout(() => {
+        gridContainer.classList.remove('animate-tiles');
+    }, 500);
+
+    // --- НОВАЯ МАГИЯ: ПОДСВЕТКА КЛАВИАТУРЫ С АНИМАЦИЕЙ ---
     // 1. Сначала сбрасываем все цвета с клавиатуры
     resetKeyboardColors();
 
     // 2. Получаем массив статусов для букв (green/yellow/gray)
     const colors = calculateTileColors(guessWord);
 
-    // 3. Проходим по каждой букве введенного слова
+    // 3. Проходим по каждой букве введенного слова и применяем класс
+    // Благодаря CSS transition, добавление класса будет анимированным
     guessWord.split('').forEach((letter, index) => {
         const keyButton = document.querySelector(`button[data-key="${letter}"]`);
         if (keyButton) {
@@ -3592,32 +3621,9 @@ function submitCurrentGuess() {
     });
     // --- КОНЕЦ НОВОЙ МАГИИ ---
 
-    // --- МАГИЯ АНИМАЦИИ И ЛОГИКИ (ПЕРЕНЕСЕНА В НАЧАЛО) ---
+
+    // --- ПРОВЕРКИ РЕЗУЛЬТАТА ИГРЫ ---
     
-    // Добавляем слово в историю ходов (даже если оно неверное!)
-    guesses.push(guessWord);
-
-    // Запускаем анимацию для всего контейнера сетки
-    const gridContainer = document.querySelector('#grid');
-    gridContainer.classList.add('animate-tiles');
-    setTimeout(() => {
-        gridContainer.classList.remove('animate-tiles');
-    }, 500);
-
-    // --- ПРОВЕРКИ УСЛОВИЙ ИГРЫ ---
-    
-    // Проверка на наличие слова в словаре и длину делаем ПОСЛЕ анимации и логики
-    if (guessWord.length !== WORD_LENGTH || !words.includes(guessWord)) {
-        if (guessWord.length !== WORD_LENGTH) {
-            messageSpan.textContent = 'Слово должно быть из 5 букв!';
-        } else {
-            messageSpan.textContent = 'Слова "' + guessWord + '" не существует!';
-        }
-        // Удаляем неверное слово из истории, чтобы не мешало логике игры
-        guesses.pop(); 
-        return; 
-    }
-
     // Если слово валидное, проверяем результат игры
     if (guessWord === answer) {
         endGame(true);
