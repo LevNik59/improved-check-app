@@ -3627,7 +3627,7 @@ function setupGame() {
     currentRow = new Array(WORD_LENGTH).fill('');
     currentCol = 0;
     messageSpan.textContent = '';
-
+    document.addEventListener('keydown', handlePhysicalKeyboard);
     renderEntireGame(); // Отрисовываем пустое поле
 }
 
