@@ -3799,6 +3799,28 @@ function pickRandomWord(wordList) {
 
 // --- ПОДКЛЮЧЕНИЕ КНОПКИ СТАРТА ---
 startButton.addEventListener('click', setupGame);
+    // --- ЭЛЕМЕНТЫ ДЛЯ НОВОГО ДИАЛОГА ---
+const howToPlayBtn = document.getElementById('how-to-play-btn');
+const howToPlayDialog = document.getElementById('how-to-play-dialog');
+const closeHowToPlayBtn = document.getElementById('close-how-to-play');
+const modalOverlay = document.getElementById('modal-overlay'); // Используем уже существующий оверлей
+
+// --- ОБРАБОТЧИКИ СОБЫТИЙ ---
+howToPlayBtn.addEventListener('click', () => {
+    howToPlayDialog.style.display = 'block';
+    modalOverlay.style.display = 'block';
+});
+
+closeHowToPlayBtn.addEventListener('click', () => {
+    howToPlayDialog.style.display = 'none';
+    modalOverlay.style.display = 'none';
+});
+
+// Также закроем диалог, если кликнуть по оверлею (темному фону)
+modalOverlay.addEventListener('click', () => {
+    settingsDialog.style.display = 'none'; // Закроет настройки, если они открыты
+    howToPlayDialog.style.display = 'none'; // Закроет "Как играть"
+});
 </script>
 </body>
 </html>
