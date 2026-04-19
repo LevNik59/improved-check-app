@@ -3386,6 +3386,8 @@ button[data-key]:hover {
 ];
     const WORD_LENGTH = 5;
 const MAX_GUESSES = 6;
+let currentRow = 0;
+let currentCol = 0;
 let answer = '';
 let guesses = []; // Хранит уже сделанные ходы
 let keyboardColors = {}; // Объект для хранения цветов кнопок клавиатуры: {'А': 'green', 'Б': 'yellow', ...}
@@ -3401,7 +3403,7 @@ const settingsDialog = document.getElementById('settings-dialog');
 const modalOverlay = document.getElementById('modal-overlay');
 const saveSettingsBtn = document.getElementById('save');
 const cancelSettingsBtn = document.getElementById('cancel');
-
+let isGameOver = true;
 // --- ОБРАБОТЧИКИ НАСТРОЕК ---
 settingsBtn.addEventListener('click', () => {
     settingsDialog.style.display = 'block';
@@ -3523,30 +3525,6 @@ function calculateTileColors(guess) {
 
     return result;
 }
-function handlePhysicalKeyboard(event) {
-    // Игнорируем нажатия, если модальное окно настроек открыто
-    if (settingsDialog.style.display === 'block') {
-        return;
-    }
-
-    const key = event.key.toUpperCase(); // Получаем нажатую клавишу
-
-    // Проверяем, является ли клавиша буквой (А-Я)
-    const isLetter = key.length === 1 && key.match(/[А-Я]/);
-
-    if (isLetter) {
-        const virtualButton = document.querySelector(`button[data-key="${key}"]`);
-        if (virtualButton) {
-            virtualButton.click();
-        }
-    } else if (key === 'BACKSPACE') {
-        const deleteButton = document.querySelector('button[data-key="DELETE"]');
-        deleteButton?.click();
-    } else if (key === 'ENTER') {
-        const enterButton = document.querySelector('button[data-key="ENTER"]');
-        enterButton?.click();
-    }
-}
 // --- ФУНКЦИЯ ОБНОВЛЕНИЯ ЦВЕТОВ КЛАВИАТУРЫ ---
 function updateKeyboardColors(guess, colors) {
     guess.split('').forEach((letter, index) => {
@@ -3656,6 +3634,12 @@ function setupGame() {
 // --- КОНЕЦ ИГРЫ ---
 function endGame(won) {
     isGameOver = true;
+        keyboardColors = {}; // Очищаем объект, где хранятся цвета букв
+
+    // Находим все кнопки клавиатуры и убираем с них классы цветов
+    document.querySelectorAll('#keyboard button[data-key]').forEach(button => {
+        button.classList.remove('green', 'yellow', 'gray');
+    });
     startButton.style.visibility = 'visible';
 
     if (won) {
