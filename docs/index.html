@@ -474,7 +474,7 @@ button[data-key]:hover {
           </div>
       </div>
         <h3> ‎ </h3>
-            <span id="label">Версия 1.0.7</span>
+            <span id="label">Версия 1.0.7 Deluxe Edition</span>
 </div>
       <div id="modal-overlay" class="hidden"></div>
 <script>
@@ -3523,7 +3523,30 @@ function calculateTileColors(guess) {
 
     return result;
 }
+function handlePhysicalKeyboard(event) {
+    // Игнорируем нажатия, если модальное окно настроек открыто
+    if (settingsDialog.style.display === 'block') {
+        return;
+    }
 
+    const key = event.key.toUpperCase(); // Получаем нажатую клавишу
+
+    // Проверяем, является ли клавиша буквой (А-Я)
+    const isLetter = key.length === 1 && key.match(/[А-Я]/);
+
+    if (isLetter) {
+        const virtualButton = document.querySelector(`button[data-key="${key}"]`);
+        if (virtualButton) {
+            virtualButton.click();
+        }
+    } else if (key === 'BACKSPACE') {
+        const deleteButton = document.querySelector('button[data-key="DELETE"]');
+        deleteButton?.click();
+    } else if (key === 'ENTER') {
+        const enterButton = document.querySelector('button[data-key="ENTER"]');
+        enterButton?.click();
+    }
+}
 // --- ФУНКЦИЯ ОБНОВЛЕНИЯ ЦВЕТОВ КЛАВИАТУРЫ ---
 function updateKeyboardColors(guess, colors) {
     guess.split('').forEach((letter, index) => {
