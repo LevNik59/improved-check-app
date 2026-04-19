@@ -14,6 +14,7 @@
       margin: 0;
       padding: 0;
 }
+          
 
 body {
       font-family: 'Segoe UI', sans-serif;
@@ -249,7 +250,7 @@ button:hover {
 }
 #start-game-btn,
 #settings-btn,
-#label {
+#label, #how-to-play-btn {
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
@@ -460,6 +461,42 @@ button[data-key]:hover {
 .green {
     background-color: #6aaa64;
 }
+          /* --- АДАПТИВНОСТЬ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ --- */
+@media (max-width: 600px) {
+    /* Уменьшаем размер плиток поля */
+    .tile {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        line-height: 40px;
+    }
+
+    /* Уменьшаем размер букв на клавиатуре */
+    #keyboard button {
+        padding: 8px;
+        font-size: 14px;
+    }
+    
+    /* Делаем заголовок меньше */
+    h1 {
+        font-size: 2em;
+    }
+
+    /* Кнопки интерфейса делаем во всю ширину на мобилках */
+    #game-container button {
+        width: 100%;
+        text-align: center;
+        border-radius: 0; /* Уберем скругление слева/справа для полных кнопок */
+        padding: 15px 0; /* Больше вертикального отступа */
+    }
+    
+    /* Немного уменьшим диалоги настроек и правил */
+    #settings-dialog, #how-to-play-dialog {
+        width: 95%;
+        max-width: 95%;
+        padding: 20px;
+    }
+}
       </style>
 </head>
 
@@ -589,7 +626,6 @@ button[data-key]:hover {
     "АКЦИЯ",
     "АЛЕУТ",
     "АЛИБИ",
-    "АЛКАШ",
     "АЛКИД",
     "АЛЛАХ",
     "АЛЛЕЯ",
@@ -816,7 +852,6 @@ button[data-key]:hover {
     "БУФЕР",
     "БУФЕТ",
     "БУХТА",
-    "БЫДЛО",
     "БЫЛОЕ",
     "БЫЛЬЕ",
     "БЫТИЕ",
