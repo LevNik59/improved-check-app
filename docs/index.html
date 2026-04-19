@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+    
+        
+        
+        
+    <!DOCTYPE html>
 <html lang="en">
 <head>
       <meta charset="UTF-8">
@@ -194,7 +198,7 @@ button:hover {
 #start-game-btn,
 #settings-btn,
 #label {
-    width: fit-content; 
+    width: fit-content;
     margin-left: auto;
     margin-right: auto;
 }
@@ -373,6 +377,23 @@ button[data-key]:hover {
 .delete-button:hover, .enter-button:hover {
     background-color: var(--primary-hover-color);
 }
+
+/* --- НОВЫЕ СТИЛИ ДЛЯ КЛАВИАТУРЫ --- */
+.keyboard-tile.gray {
+    background-color: #787c7e !important; /* Важно использовать !important, чтобы перебить другие стили */
+    color: white;
+}
+
+.keyboard-tile.yellow {
+    background-color: #c9b458 !important;
+    color: black;
+}
+
+.keyboard-tile.green {
+    background-color: #6aaa64 !important;
+    color: white;
+}
+
 /* Серый цвет для букв, отсутствующих в слове */
 .gray {
     background-color: #787c7e;
@@ -389,7 +410,7 @@ button[data-key]:hover {
 }
       </style>
 </head>
-      
+
 <body class="dark-mode">
 <div id="game-container">
       <h1>Wordle</h1>
@@ -410,42 +431,42 @@ button[data-key]:hover {
       <!-- Виртуальная клавиатура -->
       <div id="keyboard">
           <div class="row">
-              <button data-key="Й">Й</button>
-              <button data-key="Ц">Ц</button>
-              <button data-key="У">У</button>
-              <button data-key="К">К</button>
-              <button data-key="Е">Е</button>
-              <button data-key="Н">Н</button>
-              <button data-key="Г">Г</button>
-              <button data-key="Ш">Ш</button>
-              <button data-key="Щ">Щ</button>
-              <button data-key="З">З</button>
-              <button data-key="Х">Х</button>
-              <button data-key="Ъ">Ъ</button>
+              <button data-key="Й" class="keyboard-tile">Й</button>
+              <button data-key="Ц" class="keyboard-tile">Ц</button>
+              <button data-key="У" class="keyboard-tile">У</button>
+              <button data-key="К" class="keyboard-tile">К</button>
+              <button data-key="Е" class="keyboard-tile">Е</button>
+              <button data-key="Н" class="keyboard-tile">Н</button>
+              <button data-key="Г" class="keyboard-tile">Г</button>
+              <button data-key="Ш" class="keyboard-tile">Ш</button>
+              <button data-key="Щ" class="keyboard-tile">Щ</button>
+              <button data-key="З" class="keyboard-tile">З</button>
+              <button data-key="Х" class="keyboard-tile">Х</button>
+              <button data-key="Ъ" class="keyboard-tile">Ъ</button>
           </div>
           <div class="row">
-              <button data-key="Ф">Ф</button>
-              <button data-key="Ы">Ы</button>
-              <button data-key="В">В</button>
-              <button data-key="А">А</button>
-              <button data-key="П">П</button>
-              <button data-key="Р">Р</button>
-              <button data-key="О">О</button>
-              <button data-key="Л">Л</button>
-              <button data-key="Д">Д</button>
-              <button data-key="Ж">Ж</button>
-              <button data-key="Э">Э</button>
+              <button data-key="Ф" class="keyboard-tile">Ф</button>
+              <button data-key="Ы" class="keyboard-tile">Ы</button>
+              <button data-key="В" class="keyboard-tile">В</button>
+              <button data-key="А" class="keyboard-tile">А</button>
+              <button data-key="П" class="keyboard-tile">П</button>
+              <button data-key="Р" class="keyboard-tile">Р</button>
+              <button data-key="О" class="keyboard-tile">О</button>
+              <button data-key="Л" class="keyboard-tile">Л</button>
+              <button data-key="Д" class="keyboard-tile">Д</button>
+              <button data-key="Ж" class="keyboard-tile">Ж</button>
+              <button data-key="Э" class="keyboard-tile">Э</button>
           </div>
           <div class="row">
-              <button data-key="Я">Я</button>
-              <button data-key="Ч">Ч</button>
-              <button data-key="С">С</button>
-              <button data-key="М">М</button>
-              <button data-key="И">И</button>
-              <button data-key="Т">Т</button>
-              <button data-key="Ь">Ь</button>
-              <button data-key="Б">Б</button>
-              <button data-key="Ю">Ю</button>
+              <button data-key="Я" class="keyboard-tile">Я</button>
+              <button data-key="Ч" class="keyboard-tile">Ч</button>
+              <button data-key="С" class="keyboard-tile">С</button>
+              <button data-key="М" class="keyboard-tile">М</button>
+              <button data-key="И" class="keyboard-tile">И</button>
+              <button data-key="Т" class="keyboard-tile">Т</button>
+              <button data-key="Ь" class="keyboard-tile">Ь</button>
+              <button data-key="Б" class="keyboard-tile">Б</button>
+              <button data-key="Ю" class="keyboard-tile">Ю</button>
           </div>
           <div class="row">
               <button data-key="DELETE" class="delete-button">Удалить</button>
@@ -457,12 +478,7 @@ button[data-key]:hover {
 </div>
       <div id="modal-overlay" class="hidden"></div>
 <script>
-    const WORD_LENGTH = 5;
-const MAX_GUESSES = 6;
-let answer = '';
-let guesses = [];
-const submitButton = document.getElementById('submit-btn');
-const words = [
+      const words = [
     "ЁРШИК",
     "АБАКА",
     "АББАТ",
@@ -3368,33 +3384,48 @@ const words = [
     "ЯСТВО",
     "ЯХОНТ"
 ];
-let currentRow = []; // Массив букв текущего хода ['А', 'Б', '', '', '']
-let currentCol = 0;
-let isGameOver = true; // Флаг, указывающий, окончена ли игра
+    const WORD_LENGTH = 5;
+const MAX_GUESSES = 6;
+let answer = '';
+let guesses = []; // Хранит уже сделанные ходы
+let keyboardColors = {}; // Объект для хранения цветов кнопок клавиатуры: {'А': 'green', 'Б': 'yellow', ...}
 
-// --- ЭЛЕМЕНТЫ DOM ---
+const submitButton = document.getElementById('submit-btn');
 const gridElement = document.querySelector('#grid');
 const messageSpan = document.querySelector('#message');
 const startButton = document.getElementById('start-game-btn');
-document.getElementById('settings-btn').addEventListener('click', () => {
-    document.getElementById('settings-dialog').style.display = 'block';
-    document.getElementById('modal-overlay').style.display = 'block';
+
+// --- ЭЛЕМЕНТЫ DOM ДЛЯ НАСТРОЕК ---
+const settingsBtn = document.getElementById('settings-btn');
+const settingsDialog = document.getElementById('settings-dialog');
+const modalOverlay = document.getElementById('modal-overlay');
+const saveSettingsBtn = document.getElementById('save');
+const cancelSettingsBtn = document.getElementById('cancel');
+
+// --- ОБРАБОТЧИКИ НАСТРОЕК ---
+settingsBtn.addEventListener('click', () => {
+    settingsDialog.style.display = 'block';
+    modalOverlay.style.display = 'block';
+    // Устанавливаем текущую тему в радио-кнопки
+    const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+    document.querySelector(`input[name="theme"][value="${currentTheme}"]`).checked = true;
 });
-document.getElementById('cancel').addEventListener('click', () => {
-    document.getElementById('settings-dialog').style.display = 'none';
-    document.getElementById('modal-overlay').style.display = 'none';
+
+cancelSettingsBtn.addEventListener('click', () => {
+    settingsDialog.style.display = 'none';
+    modalOverlay.style.display = 'none';
 });
-document.getElementById('save').addEventListener('click', () => {
+
+saveSettingsBtn.addEventListener('click', () => {
     saveSettings();
-    document.getElementById('settings-dialog').style.display = 'none';
-    document.getElementById('modal-overlay').style.display = 'none';
+    settingsDialog.style.display = 'none';
+    modalOverlay.style.display = 'none';
 });
+
 // --- ФУНКЦИЯ СОХРАНЕНИЯ НАСТРОЕК ---
 function saveSettings() {
-    // 1. Находим, какую тему выбрал пользователь (checked)
     const selectedTheme = document.querySelector('input[name="theme"]:checked').value;
 
-    // 2. Применяем выбранную тему к тегу <body>
     if (selectedTheme === "light") {
         document.body.classList.add("light-mode");
         document.body.classList.remove("dark-mode");
@@ -3402,198 +3433,175 @@ function saveSettings() {
         document.body.classList.add("dark-mode");
         document.body.classList.remove("light-mode");
     }
-
-    // 3. Сохраняем выбор пользователя в LocalStorage браузера
     localStorage.setItem("wordle_theme", selectedTheme);
 }
+
 // --- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
 document.addEventListener('DOMContentLoaded', function() {
+    // Загрузка темы из LocalStorage
+    const savedTheme = localStorage.getItem("wordle_theme");
+    if (savedTheme) {
+        if (savedTheme === "light") {
+            document.body.classList.add("light-mode");
+            document.body.classList.remove("dark-mode");
+        } else {
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("light-mode");
+        }
+    } else {
+        // По умолчанию темная тема, если ничего не сохранено
+        document.body.classList.add("dark-mode");
+    }
+
     // Подключаем обработчики к клавиатуре ОДИН РАЗ
     document.querySelectorAll("#keyboard button").forEach(button => {
         button.addEventListener("click", handleKeyboardClick);
     });
-    
+
     // Первичный рендер пустой игры
     resetGameState();
     renderEntireGame();
+    document.addEventListener('keydown', handlePhysicalKeyboard); // Добавляем обработчик физической клавиатуры
 });
+
 function handlePhysicalKeyboard(event) {
     // Игнорируем нажатия, если модальное окно настроек открыто
-    if (document.getElementById('settings-dialog').style.display === 'block') {
+    if (settingsDialog.style.display === 'block') {
         return;
     }
 
     const key = event.key.toUpperCase(); // Получаем нажатую клавишу
 
-    // Проверяем, является ли клавиша буквой (А-Я или A-Z)
-    const isLetter = key.length === 1 && key.match(/[А-ЯA-Z]/);
-    
+    // Проверяем, является ли клавиша буквой (А-Я)
+    const isLetter = key.length === 1 && key.match(/[А-Я]/);
+
     if (isLetter) {
-        // Имитируем клик по виртуальной кнопке
         const virtualButton = document.querySelector(`button[data-key="${key}"]`);
         if (virtualButton) {
-            virtualButton.click(); // Это вызовет уже существующий handleKeyboardClick
+            virtualButton.click();
         }
     } else if (key === 'BACKSPACE') {
-        // Имитируем нажатие кнопки "Удалить"
         const deleteButton = document.querySelector('button[data-key="DELETE"]');
         deleteButton?.click();
     } else if (key === 'ENTER') {
-        // Имитируем нажатие кнопки "Ввод"
         const enterButton = document.querySelector('button[data-key="ENTER"]');
         enterButton?.click();
-    }
-}
-
-// --- ГЛАВНАЯ ФУНКЦИЯ ОТРИСОВКИ ---
-function renderEntireGame() {
-    gridElement.innerHTML = ''; // Полная очистка перед перерисовкой
-
-    // 1. Отрисовываем завершенные ходы (раскрашиваем плитки)
-    guesses.forEach((guess, rowIndex) => {
-        const rowDiv = document.createElement('div');
-        rowDiv.classList.add('grid-row');
-        
-        const colors = calculateTileColors(guess);
-        
-        guess.split('').forEach((letter, colIndex) => {
-            const tile = document.createElement('div');
-            tile.classList.add('tile');
-            
-            if (letter) {
-                tile.textContent = letter;
-                tile.classList.add(colors[colIndex]); // Добавляем цвет: green/yellow/gray
-                
-                tile.classList.add('has-text'); // Делаем видимым
-            }
-            rowDiv.appendChild(tile);
-        });
-        gridElement.appendChild(rowDiv);
-    });
-
-    // 2. Отрисовываем текущий ряд (где идет ввод)
-    if (currentRow.length > 0) {
-        const rowDiv = document.createElement('div');
-        rowDiv.classList.add('grid-row');
-        
-        currentRow.forEach((letter, colIndex) => {
-            const tile = document.createElement('div');
-            tile.classList.add('tile');
-            
-            if (letter) {
-                tile.textContent = letter;
-                tile.classList.add('has-text'); // Буквы текущего хода всегда видны
-            }
-            
-            // Подсветка активной плитки
-            if (colIndex === currentCol) {
-                if (!isGameOver) {
-                tile.classList.add('active');
-                }
-                // Принудительно снимаем фокус с кнопок и ставим на активную плитку
-                document.activeElement?.blur();
-                if (!isGameOver) {
-                tile.focus(); 
-                }
-            }
-            
-            rowDiv.appendChild(tile);
-        });
-        gridElement.appendChild(rowDiv);
     }
 }
 
 // --- ФУНКЦИЯ ПОДСЧЕТА ЦВЕТОВ (логика Wordle) ---
 function calculateTileColors(guess) {
     const result = [];
-    const letterCount = {};
-    
-    // Запас букв из ответа
+    const answerLetterCount = {};
+
+    // Считаем буквы в ответе
     answer.split('').forEach(char => {
-        letterCount[char] = (letterCount[char] || 0) + 1;
+        answerLetterCount[char] = (answerLetterCount[char] || 0) + 1;
     });
 
     // Фаза 1: Зеленые (точные совпадения)
     guess.split('').forEach((char, i) => {
         if (char === answer[i]) {
             result.push('green');
-            letterCount[char]--;
+            answerLetterCount[char]--; // Уменьшаем счетчик буквы
         } else {
-            result.push(null);
+            result.push(null); // Пока не определен цвет
         }
     });
 
-    // Фаза 2: Желтые (буква есть, но не на месте)
+    // Фаза 2: Желтые (буква есть, но не на месте) и Серые (буквы нет)
     guess.split('').forEach((char, i) => {
-        if (result[i]) return; // Уже зеленая
+        if (result[i]) return; // Пропускаем, если уже зеленый
 
-        if (letterCount[char] > 0) {
+        if (answerLetterCount[char] > 0) {
             result[i] = 'yellow';
-            letterCount[char]--;
+            answerLetterCount[char]--; // Уменьшаем счетчик буквы
         } else {
-            result[i] = 'gray';
+            result[i] = 'gray'; // Буквы нет в слове
         }
     });
 
     return result;
 }
 
+// --- ФУНКЦИЯ ОБНОВЛЕНИЯ ЦВЕТОВ КЛАВИАТУРЫ ---
+function updateKeyboardColors(guess, colors) {
+    guess.split('').forEach((letter, index) => {
+        const color = colors[index];
+        const existingColor = keyboardColors[letter];
+
+        // Логика: зеленый > желтый > серый. Если буква уже окрашена в более "сильный" цвет, не меняем.
+        if (!existingColor ||
+            (existingColor === 'yellow' && color === 'green') ||
+            (existingColor === 'gray' && (color === 'yellow' || color === 'green')) ||
+            (existingColor === null && (color === 'yellow' || color === 'green' || color === 'gray'))) {
+            keyboardColors[letter] = color;
+        }
+    });
+
+    // Применяем цвета ко всем кнопкам клавиатуры
+    document.querySelectorAll('#keyboard button[data-key]').forEach(button => {
+        const key = button.dataset.key;
+        const color = keyboardColors[key];
+
+        // Сначала удаляем все возможные цвета
+        button.classList.remove('green', 'yellow', 'gray');
+
+        // Затем добавляем новый цвет, если он определен
+        if (color) {
+            button.classList.add(color);
+        }
+    });
+}
+
 // --- ОБРАБОТЧИК КЛАВИАТУРЫ ---
 function handleKeyboardClick(e) {
     if (isGameOver) return;
+
     const key = e.target.dataset.key;
 
     if (key === "DELETE") {
-        currentRow[currentCol] = '';
         if (currentCol > 0) {
-            currentCol--;
+            currentRow[currentCol - 1] = ''; // Очищаем предыдущую ячейку
+            currentCol--; // Перемещаемся на предыдущую позицию
         }
-        renderEntireGame();
-
     } else if (key === "ENTER") {
         submitCurrentGuess();
-
     } else if (key && currentCol < WORD_LENGTH) {
-    // Если клавиша — буква и мы не вышли за пределы поля
-    currentRow[currentCol] = key; // Ставим букву в текущую ячейку
-
-    // Проверка: если текущая ячейка НЕ последняя, переходим к следующей
-    if (currentCol < WORD_LENGTH - 1) {
-        currentCol++; // <-- Только здесь меняем индекс
+        // Если клавиша — буква и мы не вышли за пределы поля
+        currentRow[currentCol] = key;
+        currentCol++; // Переходим к следующей позиции
     }
-    // Если же мы уже на последней ячейке (4 из 5), мы на ней и остаемся.
-    // Отправка будет происходить только по нажатию ENTER.
-    
     renderEntireGame(); // Перерисовываем поле
-}
 }
 
 // --- ЛОГИКА ОТПРАВКИ ХОДА ---
 function submitCurrentGuess() {
     const guessWord = currentRow.join('').toUpperCase();
-    
-    if (!guessWord || guessWord.length !== WORD_LENGTH || !words.includes(guessWord)) {
-        // Слово не подходит или не в словаре
-        if (guessWord.length !== WORD_LENGTH) {
-            messageSpan.textContent = 'Слово должно быть из 5 букв!';
-        } else {
-        messageSpan.textContent = 'Слова "' + guessWord + '" не существует!';
-        }
-        return; 
-    } messageSpan.textContent = '';
-                        // --- НОВАЯ МАГИЯ ---
-// Находим контейнер всей сетки
-const gridContainer = document.querySelector('#grid');
 
-// Добавляем класс-триггер, который запустит анимацию
-gridContainer.classList.add('animate-tiles');
+    if (!guessWord || guessWord.length !== WORD_LENGTH) {
+        messageSpan.textContent = 'Слово должно быть из 5 букв!';
+        return;
+    }
+    if (!words.includes(guessWord)) {
+        messageSpan.textContent = 'Такого слова нет в словаре!';
+        return;
+    }
 
-// Удаляем этот класс через 500мс (чтобы анимация могла завершиться)
-setTimeout(() => {
-    gridContainer.classList.remove('animate-tiles');
-}, 500);
-    guesses.push(guessWord);
-    
+    messageSpan.textContent = ''; // Очищаем сообщение об ошибке
+
+    // --- Анимация плиток ---
+    const gridContainer = document.querySelector('#grid');
+    gridContainer.classList.add('animate-tiles');
+    setTimeout(() => {
+        gridContainer.classList.remove('animate-tiles');
+    }, 500);
+
+    const colors = calculateTileColors(guessWord); // Получаем цвета для текущего слова
+    updateKeyboardColors(guessWord, colors); // Обновляем цвета кнопок клавиатуры
+
+    guesses.push(guessWord); // Добавляем ход в историю
+
     if (guessWord === answer) {
         endGame(true);
     } else if (guesses.length >= MAX_GUESSES) {
@@ -3611,26 +3619,29 @@ function setupGame() {
     isGameOver = false;
     startButton.style.visibility = 'hidden';
     answer = pickRandomWord(words);
-    
+    keyboardColors = {}; // Сбрасываем цвета клавиатуры при старте новой игры
+
     // Сброс состояния для новой игры
     guesses = [];
     currentRow = new Array(WORD_LENGTH).fill('');
     currentCol = 0;
     messageSpan.textContent = '';
-        document.addEventListener('keydown', handlePhysicalKeyboard);
-    renderEntireGame();
+
+    renderEntireGame(); // Отрисовываем пустое поле
 }
 
 // --- КОНЕЦ ИГРЫ ---
 function endGame(won) {
     isGameOver = true;
     startButton.style.visibility = 'visible';
-    
+
     if (won) {
         messageSpan.textContent = 'Поздравляю! Вы выиграли!';
     } else {
         messageSpan.textContent = `Игра закончена. Ответ был "${answer}".`;
     }
+    // Снимаем обработчик физической клавиатуры, чтобы избежать ввода после проигрыша/выигрыша
+    document.removeEventListener('keydown', handlePhysicalKeyboard);
 }
 
 // --- СБРОС СОСТОЯНИЯ ИГРЫ ---
@@ -3639,6 +3650,69 @@ function resetGameState() {
     guesses = [];
     currentRow = new Array(WORD_LENGTH).fill('');
     currentCol = 0;
+    keyboardColors = {}; // Сбрасываем цвета клавиатуры
+}
+
+// --- ГЛАВНАЯ ФУНКЦИЯ ОТРИСОВКИ ---
+function renderEntireGame() {
+    gridElement.innerHTML = ''; // Полная очистка перед перерисовкой
+
+    // 1. Отрисовываем завершенные ходы (раскрашиваем плитки)
+    guesses.forEach((guess, rowIndex) => {
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('grid-row');
+
+        const colors = calculateTileColors(guess);
+
+        guess.split('').forEach((letter, colIndex) => {
+            const tile = document.createElement('div');
+            tile.classList.add('tile');
+
+            if (letter) {
+                tile.textContent = letter;
+                tile.classList.add(colors[colIndex]); // Добавляем цвет: green/yellow/gray
+            }
+            rowDiv.appendChild(tile);
+        });
+        gridElement.appendChild(rowDiv);
+    });
+
+    // 2. Отрисовываем текущий ряд (где идет ввод)
+    const rowDiv = document.createElement('div');
+    rowDiv.classList.add('grid-row');
+
+    for (let i = 0; i < WORD_LENGTH; i++) {
+        const tile = document.createElement('div');
+        tile.classList.add('tile');
+
+        if (i < currentCol && !isGameOver) { // Заполненные плитки текущего хода
+            tile.textContent = currentRow[i];
+            tile.classList.add('has-text');
+        } else if (i === currentCol && !isGameOver) { // Активная плитка
+            tile.textContent = currentRow[i];
+            tile.classList.add('active');
+            if (currentRow[i]) {
+                tile.classList.add('has-text');
+            }
+        } else if (currentRow[i]) { // Плитки в пустых рядах, если они есть (маловероятно, но для полноты)
+            tile.textContent = currentRow[i];
+            tile.classList.add('has-text');
+        }
+        rowDiv.appendChild(tile);
+    }
+    gridElement.appendChild(rowDiv);
+
+    // Обновляем цвета клавиатуры ПОСЛЕ отрисовки плиток, чтобы гарантировать актуальность
+    // Это нужно, чтобы цвета клавиатуры отражали состояние всех предыдущих ходов
+    Object.keys(keyboardColors).forEach(key => {
+        const button = document.querySelector(`#keyboard button[data-key="${key}"]`);
+        if (button) {
+            button.classList.remove('green', 'yellow', 'gray');
+            if (keyboardColors[key]) {
+                button.classList.add(keyboardColors[key]);
+            }
+        }
+    });
 }
 
 // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
