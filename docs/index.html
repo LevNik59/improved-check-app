@@ -19,7 +19,59 @@ body {
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
 }
+/* --- НОВЫЕ СТИЛИ ДЛЯ ДИАЛОГА --- */
+#how-to-play-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background-color);
+    padding: 25px;
+    border-radius: 10px;
+    z-index: 1001; /* Выше, чем у настроек */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    width: 90%;
+    max-width: 500px;
+    text-align: left; /* Выравнивание текста по левому краю */
+}
 
+#how-to-play-dialog h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+
+.rules-content {
+    margin-bottom: 20px;
+}
+
+#how-to-play-dialog ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding: 0;
+}
+
+/* Цветные точки для правил */
+.green-dot, .yellow-dot, .gray-dot {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.green-dot { background-color: #6aaa64; }
+.yellow-dot { background-color: #c9b458; }
+.gray-dot { background-color: #787c7e; }
+
+#how-to-play-dialog button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 #game-container {
       position: relative; /* 1. Изменили на relative */
       top: 0; /* 2. Сбросили позиционирование */
