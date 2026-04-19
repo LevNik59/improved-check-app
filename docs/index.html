@@ -417,6 +417,7 @@ button[data-key]:hover {
       <button id="start-game-btn">Начать игру</button>
       <div id="grid"></div>
       <button id="settings-btn">⚙️ Настройки</button>
+    
       <div id="settings-dialog" class="hidden">
           <h2>Настройки</h2>
           <div>
@@ -425,6 +426,23 @@ button[data-key]:hover {
           </div>
           <button id="save">Применить</button>
           <button id="cancel">Отмена</button>
+      </div>
+          <!-- НОВАЯ КНОПКА -->
+      <button id="how-to-play-btn">❓ Как играть?</button>
+      <!-- НОВЫЙ ДИАЛОГ -->
+      <div id="how-to-play-dialog" class="hidden">
+          <h2>Правила игры</h2>
+          <div class="rules-content">
+              <p>Вам нужно угадать слово из 5 букв за 6 попыток.</p>
+              <p>После каждой попытки плитки с буквами окрасятся в разные цвета:</p>
+              <ul>
+                  <li><span class="green-dot"></span> <strong>Зеленый</strong> — буква верная и стоит на своем месте.</li>
+                  <li><span class="yellow-dot"></span> <strong>Желтый</strong> — буква есть в слове, но стоит не на своем месте.</li>
+                  <li><span class="gray-dot"></span> <strong>Серый</strong> — такой буквы нет в слове.</li>
+              </ul>
+              <p>Вводить можно только существующие слова из словаря. Удачи!</p>
+          </div>
+          <button id="close-how-to-play">Понятно</button>
       </div>
       <h2> </h2>
       <span id="message"></span>
