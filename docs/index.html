@@ -554,9 +554,11 @@ button[data-key]:hover {
         font-size: 14px;
         padding: 10px 15px;
         margin-top: 8px;
-        width: 100%; /* Кнопки во всю ширину */
-        border-radius: 0; /* Убираем скругление */
+        max-width: 90%; /* Добавляем ограничение максимальной ширины */
+        margin-left: auto;
+        margin-right: auto; /* Центрируем кнопки */
     }
+
     
     .grid-row {
         gap: 5px;
