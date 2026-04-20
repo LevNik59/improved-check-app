@@ -16,9 +16,18 @@
 }
           
 
+
+/* --- ИСПРАВЛЕНИЕ ТЕЛА СТРАНИЦЫ (чтобы фон был на весь экран) --- */
 body {
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    /* Переносим высоту 100% на body */
+    min-height: 100vh; 
+    margin: 0;
+    display: flex; /* Включаем Flexbox для body */
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: flex-start; /* Прижимаем контент к верху (можно заменить на center) */
+    padding-top: 20px; /* Небольшой отступ сверху для красоты */
 }
 /* --- НОВЫЕ СТИЛИ ДЛЯ ДИАЛОГА --- */
 #how-to-play-dialog {
@@ -73,19 +82,18 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* --- ИСПРАВЛЕНИЕ КОНТЕЙНЕРА --- */
 #game-container {
-      position: relative; /* 1. Изменили на relative */
-      top: 0; /* 2. Сбросили позиционирование */
-      left: 0;
-      transform: none;
-      flex-wrap: wrap;
-      display: flex; /* 3. Включили Flexbox */
-      flex-direction: column; /* 4. Указали, что элементы идут сверху вниз */
-      min-height: 100vh; /* 5. Заставляем контейнер занимать минимум всю высоту окна */
-      max-width: 600px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    /* УДАЛЯЕМ ЭТУ СТРОКУ: */
+    /* min-height: 100vh; */
 }
 #setup-form {
       display: block;
@@ -680,7 +688,7 @@ button[data-key]:hover {
           </div>
       </div>
         <h3> ‎ </h3>
-            <span id="label">Версия 1.0.8a</span>
+            <span id="label">Версия 1.0.8</span>
 </div>
       <div id="modal-overlay" class="hidden"></div>
 <script>
