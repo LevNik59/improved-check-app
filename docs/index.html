@@ -692,7 +692,7 @@ button[data-key]:hover {
           </div>
       </div>
         <h3> ‎ </h3>
-            <span id="label">Версия 1.0.9</span>
+            <span id="label">Версия 1.0.8.1</span>
 </div>
       <div id="modal-overlay" class="hidden"></div>
 <script>
@@ -3799,6 +3799,10 @@ function submitCurrentGuess() {
     }
     if (!words.includes(guessWord)) {
         messageSpan.textContent = 'Такого слова нет в словаре!';
+        return;
+    }
+    if (guesses.includes(guessWord)) {
+        messageSpan.textContent = 'Вы уже набирали это слово!';
         return;
     }
 
