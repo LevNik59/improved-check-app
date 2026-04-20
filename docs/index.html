@@ -461,66 +461,79 @@ button[data-key]:hover {
 .green {
     background-color: #6aaa64;
 }
-          /* --- АДАПТИВНОСТЬ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ --- */
-@media (max-width: 600px) {
-    /* Уменьшаем размер плиток поля */
-    .tile {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-        line-height: 40px;
-    }
+/* --- АДАПТИВНОСТЬ --- */
 
-    /* Уменьшаем размер букв на клавиатуре */
-    #keyboard button {
-        padding: 8px;
-        font-size: 14px;
-    }
-    
-    /* Делаем заголовок меньше */
+/* Основные адаптации для мобильных */
+@media (max-width: 768px) { /* Средние мобильные экраны */
     h1 {
-        font-size: 2em;
+        font-size: 2.5em;
+        margin-bottom: 15px;
     }
 
-    /* Кнопки интерфейса делаем во всю ширину на мобилках */
-    #game-container button {
-        width: 100%;
-        text-align: center;
-        border-radius: 0; /* Уберем скругление слева/справа для полных кнопок */
-        padding: 15px 0; /* Больше вертикального отступа */
+    .tile {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        line-height: 45px;
+        border-radius: 4px;
+    }
+
+    .grid-row {
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    #keyboard button {
+        padding: 9px 12px;
+        font-size: 15px;
+        border-radius: 4px;
     }
     
-    /* Немного уменьшим диалоги настроек и правил */
+    .delete-button, .enter-button {
+        padding: 9px 15px;
+    }
+    
+    #setup-form input,
+    #setup-form button,
+    #start-game-btn,
+    #settings-btn,
+    #how-to-play-btn {
+        font-size: 15px;
+        padding: 12px 20px;
+    }
+
     #settings-dialog, #how-to-play-dialog {
         width: 95%;
         max-width: 95%;
         padding: 20px;
     }
+    #settings-dialog h2, #how-to-play-dialog h2 {
+        font-size: 1.6em;
+    }
 }
 
-/* --- НОВЫЕ СТИЛИ ДЛЯ УЛУЧШЕНИЯ МОБИЛЬНОЙ ВЕРТИКАЛЬНОЙ ОРИЕНТАЦИИ --- */
-@media (max-width: 480px) { /* Это медиа-запрос для очень маленьких экранов, как большинство телефонов в вертикальной ориентации */
-    
+/* Очень маленькие экраны (большинство телефонов в портретной ориентации) */
+@media (max-width: 480px) {
     body {
-        padding: 10px; /* Уменьшим общий паддинг, чтобы контент занимал больше места */
+        padding: 10px;
     }
 
     #game-container {
-        padding: 10px; /* Уменьшим паддинг контейнера игры */
-        min-height: auto; /* Высота будет подстраиваться под контент */
+        padding: 10px;
+        min-height: auto; /* Высота подстраивается под контент */
     }
 
     h1 {
-        font-size: 2.2em; /* Еще немного уменьшим заголовок */
-        margin-bottom: 15px;
+        font-size: 2em;
+        margin-bottom: 10px;
     }
 
     #setup-form {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     #setup-form input {
-        font-size: 14px; /* Уменьшим шрифт поля ввода */
+        font-size: 14px;
         padding: 8px;
     }
 
@@ -528,52 +541,54 @@ button[data-key]:hover {
     #start-game-btn,
     #settings-btn,
     #how-to-play-btn {
-        font-size: 14px; /* Уменьшим шрифт кнопок */
-        padding: 10px 15px; /* Немного уменьшим паддинг кнопок */
+        font-size: 14px;
+        padding: 10px 15px;
         margin-top: 8px;
+        width: 100%; /* Кнопки во всю ширину */
+        border-radius: 0; /* Убираем скругление */
     }
-
+    
     .grid-row {
-        gap: 5px; /* Уменьшим расстояние между плитками */
+        gap: 5px;
         margin-top: 5px;
     }
 
     .tile {
-        width: 35px; /* Уменьшим размер плиток */
-        height: 35px;
-        font-size: 16px; /* Уменьшим шрифт на плитках */
-        line-height: 35px; /* Корректируем выравнивание по вертикали */
-        border-radius: 3px; /* Уменьшим скругление */
+        width: 38px;
+        height: 38px;
+        font-size: 17px;
+        line-height: 38px;
+        border-radius: 3px;
     }
 
     #keyboard {
-        gap: 5px; /* Уменьшим расстояние между рядами клавиатуры */
+        gap: 5px;
         margin-top: 15px;
     }
 
     #keyboard button {
-        padding: 6px 8px; /* Уменьшим паддинг кнопок клавиатуры */
-        font-size: 12px; /* Уменьшим шрифт на кнопках клавиатуры */
-        border-radius: 3px; /* Уменьшим скругление */
+        padding: 6px 8px;
+        font-size: 12px;
+        border-radius: 3px;
     }
     
     .delete-button, .enter-button {
-        padding: 6px 10px; /* Корректируем паддинг для кнопок Enter/Delete */
+        padding: 6px 10px;
     }
 
     #settings-dialog, #how-to-play-dialog {
         width: 95%;
-        max-width: 98%; /* Немного увеличим ширину для лучшего использования пространства */
-        padding: 15px; /* Уменьшим внутренние отступы */
+        max-width: 98%;
+        padding: 15px;
     }
 
     #settings-dialog h2, #how-to-play-dialog h2 {
-        font-size: 1.5em; /* Уменьшим заголовок диалогов */
+        font-size: 1.5em;
         margin-bottom: 10px;
     }
 
     #settings-dialog label, #how-to-play-dialog li {
-        font-size: 1em; /* Уменьшим размер текста в диалогах */
+        font-size: 1em;
         margin-bottom: 8px;
     }
     
