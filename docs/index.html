@@ -692,12 +692,11 @@ button[data-key]:hover {
           </div>
       </div>
         <h3> ‎ </h3>
-            <span id="label">Версия 1.0.8</span>
+            <span id="label">Версия 1.0.9</span>
 </div>
       <div id="modal-overlay" class="hidden"></div>
 <script>
       const words = [
-    "ЁРШИК",
     "АБАКА",
     "АББАТ",
     "АБВЕР",
@@ -1333,14 +1332,12 @@ button[data-key]:hover {
     "ДУМЕЦ",
     "ДУМКА",
     "ДУПЛО",
-    "ДУРАК",
     "ДУРКА",
     "ДУТЫШ",
     "ДУТЬЕ",
     "ДУШКА",
     "ДУШОК",
     "ДУЭЛЬ",
-    "ДЫЛДА",
     "ДЫМКА",
     "ДЫМОК",
     "ДЫРКА",
@@ -3876,11 +3873,10 @@ function resetGameState() {
     keyboardColors = {}; // Сбрасываем цвета клавиатуры
 }
 
-// --- ГЛАВНАЯ ФУНКЦИЯ ОТРИСОВКИ ---
 function renderEntireGame() {
     gridElement.innerHTML = ''; // Полная очистка перед перерисовкой
 
-    // 1. Отрисовываем завершенные ходы (раскрашиваем плитки)
+    // 1. Отрисовываем завершённые ходы (раскрашиваем плитки)
     guesses.forEach((guess, rowIndex) => {
         const rowDiv = document.createElement('div');
         rowDiv.classList.add('grid-row');
@@ -3900,33 +3896,34 @@ function renderEntireGame() {
         gridElement.appendChild(rowDiv);
     });
 
-    // 2. Отрисовываем текущий ряд (где идет ввод)
-    const rowDiv = document.createElement('div');
-    rowDiv.classList.add('grid-row');
+    // 2. Отрисовываем текущий ряд (где идёт ввод) — ТОЛЬКО ЕСЛИ ИГРА НЕ ОКОНЧЕНА
+    if (!isGameOver) {
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('grid-row');
 
-    for (let i = 0; i < WORD_LENGTH; i++) {
-        const tile = document.createElement('div');
-        tile.classList.add('tile');
+        for (let i = 0; i < WORD_LENGTH; i++) {
+            const tile = document.createElement('div');
+            tile.classList.add('tile');
 
-        if (i < currentCol && !isGameOver) { // Заполненные плитки текущего хода
-            tile.textContent = currentRow[i];
-            tile.classList.add('has-text');
-        } else if (i === currentCol && !isGameOver) { // Активная плитка
-            tile.textContent = currentRow[i];
-            tile.classList.add('active');
-            if (currentRow[i]) {
+            if (i < currentCol) { // Заполненные плитки текущего хода
+                tile.textContent = currentRow[i];
+                tile.classList.add('has-text');
+            } else if (i === currentCol) { // Активная плитка
+                tile.textContent = currentRow[i];
+                tile.classList.add('active');
+                if (currentRow[i]) {
+                    tile.classList.add('has-text');
+                }
+            } else if (currentRow[i]) { // Плитки в пустых рядах (маловероятно, но для полноты)
+                tile.textContent = currentRow[i];
                 tile.classList.add('has-text');
             }
-        } else if (currentRow[i]) { // Плитки в пустых рядах, если они есть (маловероятно, но для полноты)
-            tile.textContent = currentRow[i];
-            tile.classList.add('has-text');
+            rowDiv.appendChild(tile);
         }
-        rowDiv.appendChild(tile);
+        gridElement.appendChild(rowDiv);
     }
-    gridElement.appendChild(rowDiv);
 
-    // Обновляем цвета клавиатуры ПОСЛЕ отрисовки плиток, чтобы гарантировать актуальность
-    // Это нужно, чтобы цвета клавиатуры отражали состояние всех предыдущих ходов
+    // Обновляем цвета клавиатуры ПОСЛЕ отрисовки плиток
     Object.keys(keyboardColors).forEach(key => {
         const button = document.querySelector(`#keyboard button[data-key="${key}"]`);
         if (button) {
@@ -3937,6 +3934,7 @@ function renderEntireGame() {
         }
     });
 }
+
 
 // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
 function pickRandomWord(wordList) {
