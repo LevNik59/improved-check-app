@@ -8,7 +8,7 @@
       <meta charset="UTF-8">
       <title>Wordle Game</title>
       <link rel="stylesheet" href="style.css">
-      <style>
+   <style>
             * {
       box-sizing: border-box;
       margin: 0;
@@ -497,6 +497,90 @@ button[data-key]:hover {
         padding: 20px;
     }
 }
+
+/* --- НОВЫЕ СТИЛИ ДЛЯ УЛУЧШЕНИЯ МОБИЛЬНОЙ ВЕРТИКАЛЬНОЙ ОРИЕНТАЦИИ --- */
+@media (max-width: 480px) { /* Это медиа-запрос для очень маленьких экранов, как большинство телефонов в вертикальной ориентации */
+    
+    body {
+        padding: 10px; /* Уменьшим общий паддинг, чтобы контент занимал больше места */
+    }
+
+    #game-container {
+        padding: 10px; /* Уменьшим паддинг контейнера игры */
+        min-height: auto; /* Высота будет подстраиваться под контент */
+    }
+
+    h1 {
+        font-size: 2.2em; /* Еще немного уменьшим заголовок */
+        margin-bottom: 15px;
+    }
+
+    #setup-form {
+        margin-bottom: 15px;
+    }
+
+    #setup-form input {
+        font-size: 14px; /* Уменьшим шрифт поля ввода */
+        padding: 8px;
+    }
+
+    #setup-form button,
+    #start-game-btn,
+    #settings-btn,
+    #how-to-play-btn {
+        font-size: 14px; /* Уменьшим шрифт кнопок */
+        padding: 10px 15px; /* Немного уменьшим паддинг кнопок */
+        margin-top: 8px;
+    }
+
+    .grid-row {
+        gap: 5px; /* Уменьшим расстояние между плитками */
+        margin-top: 5px;
+    }
+
+    .tile {
+        width: 35px; /* Уменьшим размер плиток */
+        height: 35px;
+        font-size: 16px; /* Уменьшим шрифт на плитках */
+        line-height: 35px; /* Корректируем выравнивание по вертикали */
+        border-radius: 3px; /* Уменьшим скругление */
+    }
+
+    #keyboard {
+        gap: 5px; /* Уменьшим расстояние между рядами клавиатуры */
+        margin-top: 15px;
+    }
+
+    #keyboard button {
+        padding: 6px 8px; /* Уменьшим паддинг кнопок клавиатуры */
+        font-size: 12px; /* Уменьшим шрифт на кнопках клавиатуры */
+        border-radius: 3px; /* Уменьшим скругление */
+    }
+    
+    .delete-button, .enter-button {
+        padding: 6px 10px; /* Корректируем паддинг для кнопок Enter/Delete */
+    }
+
+    #settings-dialog, #how-to-play-dialog {
+        width: 95%;
+        max-width: 98%; /* Немного увеличим ширину для лучшего использования пространства */
+        padding: 15px; /* Уменьшим внутренние отступы */
+    }
+
+    #settings-dialog h2, #how-to-play-dialog h2 {
+        font-size: 1.5em; /* Уменьшим заголовок диалогов */
+        margin-bottom: 10px;
+    }
+
+    #settings-dialog label, #how-to-play-dialog li {
+        font-size: 1em; /* Уменьшим размер текста в диалогах */
+        margin-bottom: 8px;
+    }
+    
+    .rules-content {
+        margin-bottom: 15px;
+    }
+}
       </style>
 </head>
 
@@ -581,7 +665,7 @@ button[data-key]:hover {
           </div>
       </div>
         <h3> ‎ </h3>
-            <span id="label">Версия 1.0.8 beta</span>
+            <span id="label">Версия 1.0.8</span>
 </div>
       <div id="modal-overlay" class="hidden"></div>
 <script>
