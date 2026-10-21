@@ -203,18 +203,35 @@ h3 {
     animation: colorizeGray 0.5s ease-in forwards;
 }
 
-/* Сами кадры анимации остаются те же */
 @keyframes colorizeGreen {
-  0% { background-color: rgba(0, 0, 0, 0); box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.5); }
-  100% { background-color: #6aaa64; box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); }
+  0% { 
+    background: linear-gradient(135deg, rgba(106, 170, 100, 0), rgba(106, 170, 100, 0)); 
+    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.5);
+  }
+  100% { 
+    background: linear-gradient(135deg, #4a7d45, #89c284); /* Используем градиент из .tile.green */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  }
 }
 @keyframes colorizeYellow {
-  0% { background-color: rgba(0, 0, 0, 0); box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.5); }
-  100% { background-color: #c9b458; box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3); }
+  0% { 
+    background: linear-gradient(135deg, rgba(201, 180, 88, 0), rgba(201, 180, 88, 0)); 
+    box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.5);
+  }
+  100% { 
+    background: linear-gradient(135deg, #a18f3b, #e0cc6b); /* Используем градиент из .tile.yellow */
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
+  }
 }
 @keyframes colorizeGray {
-  0% { background-color: rgba(0, 0, 0, 0); box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.3); }
-  100% { background-color: #787c7e; box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.2); }
+  0% { 
+    background: linear-gradient(135deg, rgba(120, 124, 126, 0), rgba(120, 124, 126, 0)); 
+    box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.3);
+  }
+  100% { 
+    background: linear-gradient(135deg, #5a5d5f, #969a9c); /* Используем градиент из .tile.gray */
+    box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.2);
+  }
 }
 
 /* Анимация активной плитки */
@@ -283,9 +300,9 @@ button:hover {
       --primary-hover-color: #1572df;
       --secondary-color: white;
       --background-color: #121213;
-      --tile-gray: linear-gradient(135deg, #5a5d5f, #969a9c);
-      --tile-yellow: linear-gradient(135deg, #a18f3b, #e0cc6b);
-      --tile-green: linear-gradient(135deg, #4a7d45, #89c284);
+      --tile-gray: linear-gradient(90deg, #5a5d5f, #969a9c);
+      --tile-yellow: linear-gradient(90deg, #a18f3b, #e0cc6b);
+      --tile-green: linear-gradient(90deg, #4a7d45, #89c284);
       --info-color: #ffcc00;
       color: white;
       background-color: #121213;
@@ -297,10 +314,9 @@ button:hover {
       --primary-hover-color: #0069d9;
       --secondary-color: black;
       --background-color: #f8f9fa;
-      --tile-gray: #ced4da;
-      --tile-gray: linear-gradient(135deg, #5a5d5f, #969a9c);
-      --tile-yellow: linear-gradient(135deg, #a18f3b, #e0cc6b);
-      --tile-green: linear-gradient(135deg, #4a7d45, #89c284);
+      --tile-gray: linear-gradient(135deg, #6a6d6f, #a6aaac);
+      --tile-yellow: linear-gradient(135deg, #b19f4b, #f0dc7b);
+      --tile-green: linear-gradient(135deg, #6a9d65, #99d294);
       color: black;
       background-color: #f8f9fa;
 }
@@ -641,7 +657,6 @@ button[data-key]:hover {
                   <li><span class="gray-dot"></span> <strong>Серый</strong> — такой буквы нет в слове.</li>
               </ul>
               <p>Вводить можно только существующие слова из словаря. Удачи!</p>
-            <p><u>Если что, буква Ё равнасильна букве Е</u></p>
           </div>
           <button id="close-how-to-play">Понятно</button>
       </div>
@@ -693,7 +708,7 @@ button[data-key]:hover {
           </div>
       </div>
         <h3> ‎ </h3>
-            <span id="label">Версия 1.0.8.4 beta-2</span>
+            <span id="label">Версия 1.0.8.4 beta-3</span>
 </div>
       <div id="modal-overlay" class="hidden"></div>
 <script>
