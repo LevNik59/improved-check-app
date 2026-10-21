@@ -1,7 +1,4 @@
-    
-        
-        
-        
+
     <!DOCTYPE html>
 <html lang="en">
 
@@ -153,33 +150,36 @@ h3 {
 }
 
 .tile {
-      width: 50px;
-      height: 50px;
-      display: inline-block;
-      visibility: visible;
-      font-size: 24px;
-      line-height: 50px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-      border-radius: 5px;
-      box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.5);
-      color: var(color);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.5);
+    color: var(--secondary-color);
+    position: relative;
 }
 
+.tile {
+    background: linear-gradient(135deg, #333, #555);
+}
 .tile.gray {
-  background: linear-gradient(135deg, #5a5d5f, #969a9c);
+    background: linear-gradient(135deg, #5a5d5f, #969a9c);
 }
-
 .tile.yellow {
-  background: linear-gradient(135deg, #a18f3b, #e0cc6b);
+    background: linear-gradient(135deg, #a18f3b, #e0cc6b);
 }
-
 .tile.green {
-  background: linear-gradient(135deg, #4a7d45, #89c284);
+    background: linear-gradient(135deg, #4a7d45, #89c284);
 }
 .tile.active {
-    box-shadow: 0 0 0 3px #4a90e2; /* Яркая рамка */
+    box-shadow: 0 0 0 3px #4a90e2;
+    animation: pulse 1s infinite ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -192,7 +192,6 @@ h3 {
     transform: scale(1);
   }
 }
-/* --- ДОБАВЬ ЭТО В CSS --- */
 #grid.animate-tiles .tile.green {
     animation: colorizeGreen 0.5s ease-in forwards;
 }
@@ -203,36 +202,31 @@ h3 {
     animation: colorizeGray 0.5s ease-in forwards;
 }
 
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Анимации теперь просто убирают прозрачность */
 @keyframes colorizeGreen {
-  0% { 
-    background: linear-gradient(135deg, rgba(106, 170, 100, 0), rgba(106, 170, 100, 0)); 
-    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.5);
-  }
-  100% { 
-    background: linear-gradient(135deg, #4a7d45, #89c284); /* Используем градиент из .tile.green */
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 @keyframes colorizeYellow {
-  0% { 
-    background: linear-gradient(135deg, rgba(201, 180, 88, 0), rgba(201, 180, 88, 0)); 
-    box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.5);
-  }
-  100% { 
-    background: linear-gradient(135deg, #a18f3b, #e0cc6b); /* Используем градиент из .tile.yellow */
-    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 @keyframes colorizeGray {
-  0% { 
-    background: linear-gradient(135deg, rgba(120, 124, 126, 0), rgba(120, 124, 126, 0)); 
-    box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.3);
-  }
-  100% { 
-    background: linear-gradient(135deg, #5a5d5f, #969a9c); /* Используем градиент из .tile.gray */
-    box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.2);
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
+
+.tile.colorizing {
+  animation: colorizeGreen 0.5s ease-in forwards;
+}
+#grid.animate-tiles .tile.green.colorizing { animation-name: colorizeGreen; }
+#grid.animate-tiles .tile.yellow.colorizing { animation-name: colorizeYellow; }
+#grid.animate-tiles .tile.gray.colorizing { animation-name: colorizeGray; }
 
 /* Анимация активной плитки */
 .tile.active {
@@ -240,14 +234,6 @@ h3 {
   box-shadow: 0 0 0 3px #4a90e2;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
 input {
       margin-top: 20px;
       padding: 10px;
@@ -708,7 +694,7 @@ button[data-key]:hover {
           </div>
       </div>
         <h3> ‎ </h3>
-            <span id="label">Версия 1.0.8.4 beta-3</span>
+            <span id="label">Версия 1.0.8.4 beta-4</span>
 </div>
       <div id="modal-overlay" class="hidden"></div>
 <script>
